@@ -1,7 +1,13 @@
 #!/bin/bash
 
-#Instalar Network Manager
-apt install network-manager
+# Instalar Network Manager
+# Verificar si Network Manager está instalado
+if ! dpkg -l | grep -q network-manager; then
+    apt install network-manager
+else
+    : # No hacer nada
+fi
+
 
 #eth0, eth1, etc.: Interfaces Ethernet cableadas.
 #wlan0, wlan1, etc.: Interfaces de red inalámbrica (Wi-Fi).
@@ -17,7 +23,7 @@ apt install network-manager
 
 #Conseguir la interfaz de red
 MIC=$(ip addr show | awk -F': ' '/eth|wlan|usb|enp|wlp/ && NF>1 {print $2}')
-#Pedir la IP y establecerla
+#Parametros de la interfaz
 echo "Introduce la IP de la máquina"
 read IP0base
 IP0="\taddress $IP0base"
@@ -27,6 +33,7 @@ MASK0="\tnetmask $MASK0base"
 echo "Introduce la puerta de enlace"
 read GATEWAY0base
 GATEWAY0="\tgateway $GATEWAY0base"
+#DNS, y si no se tiene, se pone la puerta de enlace
 echo "Introduce el DNS primario, si no tienes, introduce "_""
 read DNS01base
 if [ "$DNS01base" == "_" ]; then
@@ -39,6 +46,13 @@ if [ "$DNS02base" == "_" ]; then
     DNS02base=$GATEWAY0base
 fi
 DNS02="\tdns-nameservers $DNS02base"
+
+#Reinicio del daemon
+systemctl restart NetworkManager || true
+systemctl restart networking || true
+systemctl restart network-manager || true
+systemctl restart network || true
+systemctl restart resolvconf || true
 
 # Imprimir las configuraciones
 echo -e $IP0
