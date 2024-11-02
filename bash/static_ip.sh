@@ -29,13 +29,21 @@ read GATEWAY0base
 GATEWAY0="\tgateway $GATEWAY0base"
 echo "Introduce el DNS primario, si no tienes, introduce "_""
 read DNS01base
-if [ $DNS01base != "_" ]; then
+if [ "$DNS01base" == "_" ]; then
     DNS01base=$GATEWAY0base
 fi
 DNS01="\tdns-nameservers $DNS01base"
 echo "Introduce el DNS secundario, si no tienes, introduce "_""
 read DNS02base
-if [ $DNS02base != "_" ]; then
+if [ "$DNS02base" == "_" ]; then
     DNS02base=$GATEWAY0base
 fi
 DNS02="\tdns-nameservers $DNS02base"
+
+# Imprimir las configuraciones
+echo -e $IP0
+echo -e $MASK0
+echo -e $GATEWAY0
+echo -e $DNS01
+echo -e $DNS02
+echo -e $MIC
