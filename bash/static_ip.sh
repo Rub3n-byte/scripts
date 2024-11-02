@@ -15,9 +15,8 @@ apt install network-manager
 #Obtener la interfaz de la máquina
 #IP=$(hostname -I)
 
-#Pedir la interfaz de red
-MIC=$(ip addr show | awk '/inet.*brd/{print $NF}')
-echo $MIC
+#Conseguir la interfaz de red
+MIC=$(ip addr show | awk -F': ' '/eth|wlan|usb|enp|wlp/ && NF>1 {print $2}')
 #Pedir la IP y establecerla
 echo "Introduce la IP de la máquina"
 read IP0base
