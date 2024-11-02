@@ -1,5 +1,15 @@
 #!/bin/bash
+
+#Instalar Network Manager
 apt install network-manager
+
+#eth0, eth1, etc.: Interfaces Ethernet cableadas.
+#wlan0, wlan1, etc.: Interfaces de red inalámbrica (Wi-Fi).
+#lo: La interfaz de bucle invertido, utilizada para comunicaciones internas en la máquina.
+#usb0, usb1, etc.: Interfaces de red a través de dispositivos USB.
+#enp0s3, enp1s0, etc.: Nombres de interfaces predictivos modernos, derivados del bus y el puerto de conexión.
+#wlp3s0, wlp2s0, etc.: Nombres de interfaces predictivos para redes inalámbricas.
+
 #Remover Inmutabilidad
 #chattr -i /etc/network/interfaces
 #Obtener la interfaz de la máquina
