@@ -27,9 +27,9 @@ MASK0="\tnetmask $MASK0base"
 echo "Introduce la puerta de enlace"
 read GATEWAY0base
 GATEWAY0="\tgateway $GATEWAY0base"
-echo "Introduce el DNS primario, si no tienes, introduce "_", o la puerta de enlace para uno dinamico"
+echo "Introduce el DNS primario, si no tienes, introduce "_""
 read DNS01base
 DNS01="\tdns-nameservers $DNS01base"
-echo "Introduce el DNS secundario, si no tienes, introduce "_", o la puerta de enlace para uno dinamico"
+echo "Introduce el DNS secundario, si no tienes, introduce "_""
 read DNS02base
 DNS02="\tdns-nameservers $DNS02base"
