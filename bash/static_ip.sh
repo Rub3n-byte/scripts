@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Instalar Network Manager
-# Verificar si Network Manager está instalado
-if ! dpkg -l | grep -q network-manager; then
-    apt install network-manager
-else
-    : # No hacer nada
-fi
-
-
 #eth0, eth1, etc.: Interfaces Ethernet cableadas.
 #wlan0, wlan1, etc.: Interfaces de red inalámbrica (Wi-Fi).
 #lo: La interfaz de bucle invertido, utilizada para comunicaciones internas en la máquina.
@@ -17,9 +8,7 @@ fi
 #wlp3s0, wlp2s0, etc.: Nombres de interfaces predictivos para redes inalámbricas.
 
 #Remover Inmutabilidad
-#chattr -i /etc/network/interfaces
-#Obtener la interfaz de la máquina
-#IP=$(hostname -I)
+chattr -i /etc/network/interfaces
 
 #Conseguir la interfaz de red
 MIC=$(ip addr show | awk -F': ' '/eth|wlan|usb|enp|wlp/ && NF>1 {print $2}')
@@ -61,3 +50,12 @@ echo -e $GATEWAY0
 echo -e $DNS01
 echo -e $DNS02
 echo -e $MIC
+
+
+# Instalar Network Manager
+# Verificar si Network Manager está instalado
+if ! dpkg -l | grep -q network-manager; then
+    apt install network-manager
+else
+    : # No hacer nada
+fi
