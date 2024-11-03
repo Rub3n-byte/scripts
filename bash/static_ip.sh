@@ -35,6 +35,11 @@ if [ "$DNS02base" == "_" ]; then
     DNS02base=$GATEWAY0base
 fi
 DNS02="\tdns-nameservers $DNS02base"
+DNS="\tdns-nameservers $DNS01base\n\tdns-nameservers $DNS02base"
+
+#Meterlo en el archivo de configuración
+echo -e "auto $MIC\niface $MIC inet static\n$IP0\n$MASK0\n$GATEWAY0\n$DNS01\n$DNS02" > /etc/network/interfaces
+echo -e "$DNS" > /etc/resolv.conf
 
 #Reinicio del daemon
 systemctl restart NetworkManager || true
